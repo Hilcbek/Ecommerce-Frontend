@@ -86,7 +86,7 @@ const Slider = ({ product, scroll }) => {
                   options.ColorChoice.length > 0 &&
                   options.ColorChoice === color &&
                   "scale-[1.2]"
-                } w-7 h-7 rounded-full active:scale-[.93] cursor-pointer before:absolute before:content-[""] before:h-9 before:w-9 before:border-solid before:border-[1px] before:rounded-full before:-top-[4px] before:-left-1 before:border-gray-400 relative transition duration-300 ease-in-out`}
+                } w-7 h-7 rounded-full active:scale-[.93] cursor-pointer before:absolute before:content-[""] before:h-9 before:w-9 before:border-solid before:border-[1px] before:rounded-full before:-top-[4px] before:-left-1 before:border-gray-400 relative transition duration-200 ease-in-out`}
                 style={{ backgroundColor: color, borderColor: color }}
               ></div>
             ))}
@@ -141,7 +141,7 @@ const Slider = ({ product, scroll }) => {
             <span className="w-6">{quantity}</span>
             <button
               onClick={() => setQuantity((quantity) => quantity + 1)}
-              className="w-10 h-10 border-solid border-[1px] hover:border-sky-500 transition-all duration-200 ease-linear border-gray-200"
+              className="w-10 h-10 z-[99999] border-solid border-[1px] hover:border-sky-500 transition-all duration-200 ease-linear border-gray-200"
             >
               +
             </button>
@@ -161,7 +161,7 @@ const Slider = ({ product, scroll }) => {
           </abbr>
           <button
             onClick={handleAddToCart}
-            className="p-3 w-full flex items-center justify-center md:w-60 border-solid border-[1px] font-medium tracking-wider cursor-pointer active:scale-[.98] transition duration-200 ease-linear border-gray-400"
+            className="p-3 flex items-center justify-center md:w-60 border-solid border-[1px] font-medium tracking-wider cursor-pointer active:scale-[.98] transition duration-200 ease-linear border-gray-600"
           >
             Add to Cart <CiShoppingCart size={24} className="ml-2" />
           </button>
