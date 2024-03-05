@@ -143,8 +143,8 @@ const Login = () => {
       disabled={loading}
       Header={"Habesha Market Hub"}
       Footer={Footer}
-      Title={"Sign-up"}
-      label={"Sign-up"}
+      Title={"Sign-in"}
+      label={"Sign-in"}
       disabled_2={loadingGoogleAuth}
       label2={"Continue with google"}
       icon={<FcGoogle size={17} />}

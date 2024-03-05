@@ -7,6 +7,10 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { ClipLoader } from "react-spinners";
+import { MdShoppingBag } from "react-icons/md";
+import { MdOutlineClose } from "react-icons/md";
+import { CiBag1 } from "react-icons/ci";
+
 import {
   DELETE_PRODUCT,
   EnableTheSuccessPage,
@@ -32,11 +36,11 @@ const Cart = ({ open, disabled }) => {
   useEffect(() => {
     setShowModal(open);
   }, [open]);
-  let { products, total } = useSelector((state) => state.product);
+  let { products, total, amount } = useSelector((state) => state.product);
   let handleDeleteFromCart = (id, color, size) => {
     dispatch(DELETE_PRODUCT({ id, color, size }));
     toast.success("Item removed from your cart successfully", {
-      position: "top-left",
+      position: "top-center",
     });
   };
   let logModal = useLogin();
@@ -103,172 +107,168 @@ const Cart = ({ open, disabled }) => {
   };
   if (!open) return;
   return (
-    <div className="fixed top-0 right-0 font-Fredoka w-full h-full bg-neutral-800/80 z-[9999999999]">
+    <div className="fixed top-0 right-0 font-Fredoka flex items-center justify-center w-full h-full bg-neutral-800/80 z-[9999999999]">
       <div
         className={`${
-          showModal
-            ? "right-0 opacity-100 translate-x-0"
-            : "-right-[110%] opacity-0 translate-x-full"
-        } absolute top-0 transition-all transform ease-linear duration-300 h-full shadow-md shadow-black w-11/12 md:w-6/12 lg:w-5/12 xl:w-3/12 bg-white mx-auto flex items-start justify-start flex-col`}
+          showModal ? "opacity-100 z-[9999999]" : "opacity-0 -z-0"
+        } absolute transition-all p-5 transform ease-linear duration-200 h-5/6 overflow-scroll gap-2 max-h-5/6 top-16 shadow-md shadow-black w-11/12 md:w-11/12 lg:w-10/12 xl:w-9/12 bg-white mx-auto flex items-start justify-start flex-col`}
       >
         <div
           onClick={handleClose}
-          className="absolute top-2 right-2 w-8 h-8 rounded-full flex items-center justify-center border-solid border-gray-500 active:scale-[.96] border-[1px] transition-all ease-linear duration-200 active:border-gray-600  cursor-pointer"
+          className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center border-solid border-gray-500 active:scale-[.96] border-[1px] transition-all ease-linear duration-200 active:border-gray-600  cursor-pointer"
         >
-          <IoMdClose />
+          <MdOutlineClose />
         </div>
-        <div className="w-[99%] mx-auto tracking-widest flex items-start justify-start mt-4 flex-col gap-5 p-2">
-          <h1 className="text-2xl md:text-3xl text-center font-light">
-            Products in your cart!
+        <div className="w-11/12 mx-auto gap-4 flex items-start justify-start flex-col">
+          <h1 className="flex text-xl font-light tracking-wider font-Roboto underline items-center justify-center gap-1">
+            SHOPPING BAG <MdShoppingBag size={24} />
           </h1>
-          <div className="flex items-start tracking-normal w-full justify-start flex-col gap-3">
+          {amount > 0 && <p className="lg:text-xs font-Roboto font-medium text-gray-800">
+            {amount} items
+          </p>}
+          <div className="flex items-start max-h-[90%] font-Poppins justify-start flex-col gap-2">
             {products?.length > 0 ? (
-              products?.map(
-                ({
-                  _id,
-                  title,
-                  desc,
-                  img,
-                  amount,
-                  new_price,
-                  SizeChoice,
-                  ColorChoice,
-                }) => {
-                  return (
+              products.map((product) => {
+                return (
+                  <div className="flex items-center justify-start gap-5 w-full border-solid border-b-[1px] p-2 border-gray-200">
                     <div
-                      key={_id}
-                      className="w-full flex p-1 items-start justify-start gap-3  border-solid border-gray-100 bg-gray-50 hover:bg-transparent cursor-pointer border-[1px]"
+                      onClick={() =>
+                        handleDeleteFromCart(
+                          product._id,
+                          product.ColorChoice,
+                          product.SizeChoice
+                        )
+                      }
+                      className="w-32 mr-4 p-2 active:scale-[.92] hover:bg-rose-600 hover:text-white transition-all duration-300 ease-linear flex items-center justify-center cursor-pointer border-solid border-[1px] border-gray-500"
                     >
-                      <div className="w-20 h-20 border-solid border-[1px] border-gray-200">
-                        <img
-                          src={img?.[0]}
-                          alt="None"
-                          className="w-full h-full object-contain"
-                        />
+                      <MdOutlineClose size={20} />
+                    </div>
+                    <div className="w-7/12">
+                      <img
+                        className="w-full h-full object-contain"
+                        src={product.img[0]}
+                        alt=""
+                      />
+                    </div>
+                    <div className="w-full flex items-start justify-start flex-col gap-4">
+                      <h1 className="text-gray-700 text-xl">
+                        {product?.title}
+                      </h1>
+                      <div className="flex items-center justify-start gap-1">
+                        <span className="text-gray-400 text-xs">Art.No:</span>
+                        <p className="text-sm text-gray-700">{product._id}</p>
                       </div>
-                      <div className="w-full">
-                        <h1 className="w-full text-sm font-semibold text-black">
-                          {title}
-                        </h1>
-                        <p className="text-xs">
-                          &nbsp;&nbsp;&nbsp;&nbsp;
-                          {String(desc).substring(0, 90).concat("...")}
-                        </p>
-                        <div className="flex items-center justify-start gap-3">
-                          <div className="flex items-center justify-start my-1 gap-2">
-                            <div
-                              className={`w-3 h-3 rounded-full active:scale-[.93] cursor-pointer before:absolute before:content-[""] before:h-4 before:w-4 before:border-solid before:border-[1px] before:rounded-full before:-top-[2px] before:-left-[2px] before:border-gray-400 relative transition duration-300 ease-in-out`}
-                              style={{
-                                backgroundColor: ColorChoice,
-                                borderColor: ColorChoice,
-                              }}
-                            ></div>
-                          </div>
-                          <div className="flex items-center justify-start gap-2">
-                            <div
-                              className={
-                                "bg-gray-200 text-xs border-solid border-gray-300 border-b-[1px] p-1"
-                              }
-                            >
-                              {SizeChoice}
-                            </div>
-                          </div>
+                      <div className="flex items-center justify-start gap-2">
+                        <span className="text-gray-400 text-xs">Colors:</span>
+                        <div className="flex items-center justify-start gap-2">
+                          <div
+                            style={{
+                              backgroundColor: product.ColorChoice,
+                              borderColor: product.ColorChoice,
+                            }}
+                            className='w-3 h-3 rounded-full active:scale-[.93] cursor-pointer before:absolute before:content-[""] before:h-4 before:w-4 before:border-solid before:border-[1px] before:rounded-full before:-top-[2px] before:-left-[2px] before:border-gray-400 relative transition duration-300 ease-in-out'
+                          ></div>
                         </div>
-                        <h1 className="text-xs text-sky-500 font-bold">
-                          {amount} x {new_price}
-                        </h1>
                       </div>
-                      <div className="flex items-center justify-between flex-col h-full">
-                        <div
-                          onClick={() =>
-                            handleDeleteFromCart(_id, ColorChoice, SizeChoice)
-                          }
-                          className="w-7 h-7 active:scale-[.92] hover:bg-rose-600 hover:text-white transition-all duration-300 ease-linear rounded-full flex items-center justify-center cursor-pointer border-solid border-[1px] border-gray-500"
-                        >
-                          <FaDeleteLeft size={13} />
-                        </div>
-                        <div className="flex items-center justify-center gap-3">
-                          <button
-                            onClick={() =>
-                              handleAmountChange(
-                                "+",
-                                _id,
-                                ColorChoice,
-                                SizeChoice
-                              )
-                            }
-                            className="w-6 h-6 flex items-center justify-center border-solid border-gray-300 border-[1px] text-xs"
-                          >
-                            +
-                          </button>
-                          <span className="text-xs">{amount}</span>
-                          <button
-                            onClick={() =>
-                              handleAmountChange(
-                                "-",
-                                _id,
-                                ColorChoice,
-                                SizeChoice
-                              )
-                            }
-                            className="w-6 h-6 flex items-center justify-center border-solid border-gray-300 border-[1px] text-xs"
-                          >
-                            -
-                          </button>
-                        </div>
+                      <div className="flex items-center justify-start gap-1">
+                        <span className="text-gray-400 text-xs">Size:</span>
+                        <span className="text-xs">{product.SizeChoice}</span>
                       </div>
                     </div>
-                  );
-                }
-              )
+                    <div className="w-full text-xs font-bold flex items-center justify-center">
+                      <h1>${product.new_price}</h1>
+                    </div>
+                    <div className="w-full flex items-center justify-center">
+                      <div className="flex items-center justify-center gap-3">
+                        <button
+                          onClick={() =>
+                            handleAmountChange(
+                              "+",
+                              product._id,
+                              product.ColorChoice,
+                              product.SizeChoice
+                            )
+                          }
+                          className="w-6 h-6 flex items-center justify-center border-solid border-gray-300 border-[1px] text-xs"
+                        >
+                          +
+                        </button>
+                        <span className="text-xs">{product.amount}</span>
+                        <button
+                          onClick={() =>
+                            handleAmountChange(
+                              "-",
+                              product._id,
+                              product.ColorChoice,
+                              product.SizeChoice
+                            )
+                          }
+                          className="w-6 h-6 flex items-center justify-center border-solid border-gray-300 border-[1px] text-xs"
+                        >
+                          -
+                        </button>
+                      </div>
+                    </div>
+                    <div className="w-full text-xs font-bold flex items-center justify-center">
+                      ${product.new_price * product.amount}
+                    </div>
+                  </div>
+                );
+              })
             ) : (
-              <h1 className="text-center text-rose-600 font-bold font-Roboto tracking-widest">
-                No item left in your cart!
+              <h1 className=" gap-1 text-center text-4xl flex items-center justify-start font-bold font-Roboto tracking-widest">
+                Empty Bag! <CiBag1 size={40} />
               </h1>
             )}
           </div>
-          <div className="w-full flex font-Roboto items-center justify-between font-medium">
-            <h1>SUBTOTAL</h1>
-            <p className="text-sm">${Number(total).toFixed(2)}</p>
-          </div>
-          <button
-            onClick={handleCheckout}
-            disabled={loading || products.length === 0}
-            style={{
-              cursor: products.length > 0 ? "pointer" : "not-allowed",
-            }}
-            className={`${
-              products.length > 0 && !loading
-                ? "active:scale-[.96] bg-sky-500"
-                : "bg-sky-300"
-            } p-3 text-[11px] tracking-widest transition flex items-center gap-2 justify-center w-10/12 mx-auto duration-300 ease-in-out text-white`}
-          >
-            {cookies.access_token ? (
-              loading ? (
-                <>
-                  <ClipLoader
-                    color={"#fff"}
-                    loading={loading}
-                    size={20}
-                    aria-label="Loading Spinner"
-                    data-testid="loader"
-                  />{" "}
-                  <span className="">PROCESSING</span>
-                </>
+        </div>
+        <div className="flex items-center justify-between w-full">
+          <h1 className="w-full flex items-center justify-start gap-4">
+            SUBTOTAL:{" "}
+            <span className="text-xl font-bold font-Roboto">
+              ${Number(total).toFixed(2)}
+            </span>
+          </h1>
+          <div className="flex items-end mt-10 gap-3 justify-end w-full flex-col">
+            <button
+              onClick={handleCheckout}
+              disabled={loading || products.length === 0}
+              style={{
+                cursor: products.length > 0 ? "pointer" : "not-allowed",
+              }}
+              className={`${
+                products.length > 0 && !loading
+                  ? "active:scale-[.96] bg-sky-500"
+                  : "bg-sky-300"
+              } p-3 text-[11px] tracking-widest transition flex items-center gap-2 justify-center w-8/12 duration-300 ease-in-out text-white`}
+            >
+              {cookies.access_token ? (
+                loading ? (
+                  <>
+                    <ClipLoader
+                      color={"#fff"}
+                      loading={loading}
+                      size={20}
+                      aria-label="Loading Spinner"
+                      data-testid="loader"
+                    />{" "}
+                    <span className="">PROCESSING</span>
+                  </>
+                ) : (
+                  "PROCEED TO CHECKOUT"
+                )
               ) : (
-                "PROCEED TO CHECKOUT"
-              )
-            ) : (
-              "LOGIN TO PROCEED TO CHECKOUT"
-            )}
-          </button>
-          <button
-            disabled={loading}
-            onClick={ResetCart}
-            className="text-rose-500 font-Roboto text-xl active:scale-[.97] transition duration-200 ease-in-out"
-          >
-            Reset
-          </button>
+                "LOGIN TO PROCEED TO CHECKOUT"
+              )}
+            </button>
+            <button
+              disabled={loading}
+              onClick={ResetCart}
+              className="text-rose-500 w-8/12 p-3 font-Roboto text-xl active:scale-[.97] transition duration-200 ease-in-out"
+            >
+              Reset
+            </button>
+          </div>
         </div>
       </div>
     </div>
