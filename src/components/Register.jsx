@@ -146,6 +146,7 @@ const Register = () => {
     <Modal
       open={regModal.open}
       Body={Body}
+      onClose={regModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       disabled={loading}
       Header={"Habesha Market Hub"}
