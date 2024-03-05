@@ -86,7 +86,7 @@ const Slider = ({ product, scroll }) => {
                   options.ColorChoice.length > 0 &&
                   options.ColorChoice === color &&
                   "scale-[1.2]"
-                } w-7 h-7 rounded-full active:scale-[.93] cursor-pointer before:absolute before:content-[""] before:h-9 before:w-9 before:border-solid before:border-[1px] before:rounded-full before:-top-[4px] before:-left-1 before:border-gray-400 relative transition duration-200 ease-in-out`}
+                } w-7 h-7 rounded-full active:scale-[.93] cursor-pointer before:absolute before:content-[""] before:h-9 before:w-9 before:border-solid before:border-[1px] before:rounded-full before:-top-[4px] before:-left-1 before:border-gray-400 relative`}
                 style={{ backgroundColor: color, borderColor: color }}
               ></div>
             ))}
@@ -106,7 +106,7 @@ const Slider = ({ product, scroll }) => {
                 open
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-full"
-              } absolute bg-white shadow-md transition duration-300 ease-linear transform rounded-md p-2 -top-36 lg:-top-28 left-2 lg:left-[230px] w-full lg:w-3/12`}
+              } absolute bg-white shadow-md transform rounded-md p-2 -top-36 lg:-top-28 left-2 lg:left-[230px] w-full lg:w-3/12`}
             >
               {product?.size?.map((size) => (
                 <p
@@ -116,7 +116,7 @@ const Slider = ({ product, scroll }) => {
                     options.SizeChoice.length > 0 &&
                     options.SizeChoice === size &&
                     "bg-gray-400"
-                  } md:p-[7.2px] w-full p-3 cursor-pointer border-solid border-gray-100 border-b-[1px] active:scale-[.98] text-xs font-medium transition duration-100`}
+                  } md:p-[7.2px] w-full p-3 cursor-pointer border-solid border-gray-100 border-b-[1px] active:scale-[.98] text-xs font-medium`}
                 >
                   {size}
                 </p>

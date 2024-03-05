@@ -1,6 +1,6 @@
 import axios from "axios";
 export let baseUrl = axios.create({
-  baseURL: "https://ecommerce-backend-ten-beta.vercel.app/api",
+  baseURL: "http://localhost:5000/api",
   withCredentials: true,
 });
 // https://ecommerce-backend-ten-beta.vercel.app
