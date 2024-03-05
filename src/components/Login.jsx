@@ -139,6 +139,7 @@ const Login = () => {
     <Modal
       open={logModal.open}
       Body={Body}
+      onClose={logModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       disabled={loading}
       Header={"Habesha Market Hub"}
