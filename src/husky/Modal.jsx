@@ -36,10 +36,6 @@ const Modal = ({
     if (disabled) return;
     onSubmit();
   }, [onSubmit, disabled]);
-  // let handleGoogleSubmit = useCallback(() => {
-  //   if (disabled_2) return;
-  //   onSubmit_2();
-  // }, [disabled_2, onSubmit_2]);
   if (!open) return;
   return (
     <div className="fixed z-[9999999999] top-0 left-0 w-full h-screen bg-neutral-800/90 flex items-center justify-center">
