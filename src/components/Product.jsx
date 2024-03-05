@@ -117,7 +117,7 @@ const Product = ({ product }) => {
                 options.ColorChoice.length > 0 &&
                 options.ColorChoice === color &&
                 "scale-[1.4]"
-              } w-7 md:w-4 h-7 md:h-4 rounded-full active:scale-[.93] cursor-pointer before:absolute before:content-[""] md:before:w-5 md:before:h-5 before:h-8 before:w-8 before:border-solid before:border-[1.4px] before:rounded-full before:-top-[2px] before:-left-[2px] before:border-gray-300 relative transition duration-300 ease-in-out`}
+              } w-7 md:w-4 h-7 md:h-4 rounded-full active:scale-[.93] cursor-pointer before:absolute before:content-[""] md:before:w-5 md:before:h-5 before:h-8 before:w-8 before:border-solid before:border-[1.4px] before:rounded-full before:-top-[2px] before:-left-[2px] before:border-gray-300 relative`}
               style={{ backgroundColor: color, borderColor: color }}
             ></div>
           ))}
