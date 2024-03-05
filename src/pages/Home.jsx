@@ -64,7 +64,7 @@ const Home = () => {
           <PuffLoader
             color={"#000"}
             loading={loading}
-            size={40}
+            size={70}
             aria-label="Loading Spinner"
             data-testid="loader"
           />
