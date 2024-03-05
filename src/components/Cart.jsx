@@ -111,7 +111,7 @@ const Cart = ({ open, disabled }) => {
       <div
         className={`${
           showModal ? "opacity-100 z-[9999999]" : "opacity-0 -z-0"
-        } absolute transition-all p-5 transform ease-linear duration-200 h-5/6 overflow-scroll gap-2 max-h-5/6 top-16 shadow-md shadow-black w-11/12 md:w-11/12 lg:w-10/12 xl:w-9/12 bg-[#F8F7F3] mx-auto flex items-start justify-start flex-col`}
+        } absolute transition-all p-5 transform ease-linear duration-200 h-5/6 overflow-scroll gap-2 max-h-5/6 top-16 shadow-md shadow-black w-11/12 md:w-11/12 lg:w-10/12 xl:w-9/12 bg-[#e3dede] mx-auto flex items-start justify-start flex-col`}
       >
         <div
           onClick={handleClose}
@@ -123,9 +123,11 @@ const Cart = ({ open, disabled }) => {
           <h1 className="flex text-xl font-light tracking-wider font-Roboto underline items-center justify-center gap-1">
             SHOPPING BAG <MdShoppingBag size={24} />
           </h1>
-          {amount > 0 && <p className="lg:text-xs font-Roboto font-medium text-gray-800">
-            {amount} items
-          </p>}
+          {amount > 0 && (
+            <p className="lg:text-xs font-Roboto font-medium text-gray-800">
+              {amount} items
+            </p>
+          )}
           <div className="flex items-start max-h-[90%] font-Poppins justify-start flex-col gap-2">
             {products?.length > 0 ? (
               products.map((product) => {
