@@ -116,7 +116,7 @@ const Slider = ({ product, scroll }) => {
                     options.SizeChoice.length > 0 &&
                     options.SizeChoice === size &&
                     "bg-gray-400"
-                  } md:p-[7.2px] w-full p-3 cursor-pointer border-solid border-gray-100 border-b-[1px] active:scale-[.98] text-xs font-medium transition duration-300`}
+                  } md:p-[7.2px] w-full p-3 cursor-pointer border-solid border-gray-100 border-b-[1px] active:scale-[.98] text-xs font-medium transition duration-100`}
                 >
                   {size}
                 </p>
