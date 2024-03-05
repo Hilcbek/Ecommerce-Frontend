@@ -102,6 +102,7 @@ const Login = () => {
         register={register}
         type="text"
         disabled={loading}
+        disabled2={loadingGoogleAuth}
         id={"username"}
         errors={errors}
         required
@@ -112,6 +113,7 @@ const Login = () => {
         register={register}
         type="password"
         disabled={loading}
+        disabled2={loadingGoogleAuth}
         id={"password"}
         errors={errors}
         required

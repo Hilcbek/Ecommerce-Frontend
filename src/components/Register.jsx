@@ -98,6 +98,7 @@ const Register = () => {
         register={register}
         type="text"
         disabled={loading}
+        disabled2={loadingGoogleAuth}
         id={"username"}
         errors={errors}
         required
@@ -108,6 +109,7 @@ const Register = () => {
         register={register}
         type="email"
         disabled={loading}
+        disabled2={loadingGoogleAuth}
         id={"email"}
         errors={errors}
         required
@@ -118,6 +120,7 @@ const Register = () => {
         register={register}
         type="password"
         disabled={loading}
+        disabled2={loadingGoogleAuth}
         id={"password"}
         errors={errors}
         required

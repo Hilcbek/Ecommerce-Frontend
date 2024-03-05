@@ -3,6 +3,7 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 const Input = ({
   disabled,
+  disabled2,
   label,
   icon,
   errors,
@@ -26,31 +27,35 @@ const Input = ({
         <input
           id={id}
           {...register(id, { required })}
-          disabled={disabled}
+          disabled={disabled || disabled2}
           type={open ? "text" : "password"}
           className={`${
             errors[id]
               ? "border-rose-500"
               : "border-gray-400 focus:border-gray-500"
+          } ${
+            disabled || disabled2 ? "bg-gray-100" : "bg-transparent"
           } w-full p-4 pl-8 peer rounded-md text-sm border-solid border-[1px] outline-none`}
         />
       ) : (
         <input
           id={id}
           {...register(id, { required })}
-          disabled={disabled}
+          disabled={disabled || disabled2}
           type={type}
           className={`${
             errors[id]
               ? "border-rose-500"
               : "border-gray-400 focus:border-gray-500"
+          } ${
+            disabled || disabled2 ? "bg-gray-100" : "bg-transparent"
           } w-full p-4 pl-4 peer rounded-md text-sm border-solid border-[1px] outline-none`}
         />
       )}
       <label
-        className={`${
-          errors[id] ? "text-rose-500" : "text-black"
-        } text-xs flex items-center justify-center gap-1 px-1 bg-white font-medium peer-focus:scale-[.94] scale-100 tracking-wide peer-focus:-translate-y-3 transition-all ease-linear duration-200 translate-y-0 transform absolute top-1 left-3`}
+        className={`${errors[id] ? "text-rose-500" : "text-black"} ${
+          disabled || disabled2 ? "bg-transparent" : "text-black bg-white"
+        } text-xs flex items-center justify-center gap-1 px-1font-medium peer-focus:scale-[.94] scale-100 tracking-wide peer-focus:-translate-y-3 transition-all ease-linear duration-200 translate-y-0 transform absolute top-1 left-3`}
         htmlFor={id}
       >
         {icon}
