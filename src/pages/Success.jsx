@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RESET_PRODUCT } from "../../Toolkit/ProductSlice";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux'
 const Success = () => {
   let { username } = useSelector((state) => state.user);
   let dispatch = useDispatch()
