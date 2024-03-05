@@ -2,8 +2,13 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RESET_PRODUCT } from "../../Toolkit/ProductSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux'
 const Success = () => {
   let { username } = useSelector((state) => state.user);
+  let dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(RESET_PRODUCT({}))
+  },[])
   return (
     <div className="w-full flex items-center justify-center h-screen">
       <div className="w-full sm:w-8/12 md:w-6/12 lg:w-5/12 flex items-center justify-center flex-col shadow-xl p-3 gap-5 rounded-md">
