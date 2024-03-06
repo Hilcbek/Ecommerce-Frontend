@@ -82,11 +82,11 @@ const Product = ({ product }) => {
       </div>
       <Link
         to={`/product/${product?._id}`}
-        className="w-full h-[calc(100%-150px)] group-hover:h-[calc(100%-150px)]"
+        className="w-full h-[calc(100%-210px)] lg:h-[calc(100%-150px)] lg:max-h-[calc(100%-150px)]"
       >
         <img src={image} className="w-full h-full object-contain" alt="" />
       </Link>
-      <div className="md:flex overflow-x-scroll overflow-y-hidden hidden w-full md:group-hover:flex items-start gap-1 -mb-5 px-1 justify-start">
+      <div className="md:flex overflow-x-scroll overflow-y-hidden w-full flex items-start gap-1 -mb-5 px-1 justify-start">
         {product?.img?.map((c, idx) => (
           <div
             key={idx}
