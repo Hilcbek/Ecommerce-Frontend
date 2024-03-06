@@ -67,7 +67,7 @@ const Cart = ({ open, disabled }) => {
       position: "top-center",
     });
   };
-  let [cookies, setCookies] = useCookies();
+  let [cookies, setCookies] = useCookies(["access_token"]);
   let handleCheckout = async () => {
     setLoading(true);
     baseUrl
