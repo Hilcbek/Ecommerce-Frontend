@@ -204,7 +204,7 @@ const Product = () => {
           </abbr>
           <button
             onClick={handleAddToCart}
-            className="p-3 flex items-center font-Roboto justify-center w-full md:w-60 border-solid border-[1px] font-medium tracking-wider cursor-pointer active:scale-[.98] transition duration-200 ease-linear border-black"
+            className="p-3 flex items-center font-Roboto justify-center w-full border-solid border-[1px] font-medium tracking-wider cursor-pointer active:scale-[.98] transition duration-200 ease-linear border-black"
           >
             Add to Cart
             <CiShoppingCart size={24} className="ml-2" />
