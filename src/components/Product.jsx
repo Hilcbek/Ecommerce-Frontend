@@ -49,7 +49,7 @@ const Product = ({ product }) => {
         <abbr title="Add to cart">
           <button
             onClick={handleAddToCart}
-            className="w-10 h-10 border-solid hover:border-sky-500 transition-all duration-200 ease-linear cursor-pointer border-[1px] active:scale-[.97] rounded-full bg-gray-100 flex items-center justify-center"
+            className="w-10 h-10 border-solid transition-all duration-200 ease-linear cursor-pointer border-[1px] active:scale-[.97] rounded-full bg-gray-100 flex items-center justify-center"
           >
             <GiShoppingCart size={14} />
           </button>
@@ -57,7 +57,7 @@ const Product = ({ product }) => {
         <abbr title={`more about ${product.title}`}>
           <Link
             to={`/product/${product?._id}`}
-            className="w-10 h-10 border-solid hover:border-sky-500 transition-all duration-200 ease-linear cursor-pointer border-[1px] active:scale-[.97] rounded-full bg-gray-100 flex items-center justify-center"
+            className="w-10 h-10 border-solid transition-all duration-200 ease-linear cursor-pointer border-[1px] active:scale-[.97] rounded-full bg-gray-100 flex items-center justify-center"
           >
             <GrSearch size={14} />
           </Link>
