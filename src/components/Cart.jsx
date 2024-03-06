@@ -106,7 +106,7 @@ const Cart = ({ open, disabled }) => {
           dispatch(LOGOUT_ACTION({}));
         }
         if (err.response.data.error !== "token expired!") {
-          toast.error("Please " + err.response.data.error, {
+          toast.error("Please it is " + err.response.data.error, {
             position: "top-center",
           });
         }
@@ -237,7 +237,7 @@ const Cart = ({ open, disabled }) => {
                       </div>
                     </div>
                     <div className="w-full text-xs font-bold flex items-center justify-center">
-                      ${product.new_price * product.amount}
+                      ${Number(product.new_price * product.amount).toFixed(2)}
                     </div>
                   </div>
                 );
@@ -251,7 +251,7 @@ const Cart = ({ open, disabled }) => {
           <div className="w-full sm:flex-row border-solid border-gray-100 border-t-[1px] flex-col font-bold font-Roboto tracking-wider text-xl flex items-center justify-center sm:justify-between">
             <div className="flex items-center justify-start gap-1">
               <h1 className="text-gray-600">Subtotal:</h1>
-              <span className="text-[16px]">${total}</span>
+              <span className="text-[16px]">${Number(total).toFixed(2)}</span>
             </div>
             <div className="flex items-center mt-2 gap-3 justify-center flex-col">
               <button
