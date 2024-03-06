@@ -72,7 +72,7 @@ const Product = ({ product }) => {
                   options.SizeChoice.length > 0 &&
                   options.SizeChoice === size &&
                   "bg-gray-400"
-                } text-xs border-solid flex items-center justify-center text-center border-gray-300 border-b-[1px] p-1`}
+                } text-xs border-solid bg-black text-white flex items-center justify-center text-center border-gray-300 border-b-[1px] p-1`}
               >
                 {size}
               </div>
