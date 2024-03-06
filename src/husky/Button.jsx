@@ -9,8 +9,8 @@ const Button = ({ label, disabled, onClick, icon, disabled_2 }) => {
         cursor: disabled || disabled_2 ? "not-allowed" : "pointer",
       }}
       className={`${
-        disabled || disabled_2 ? "bg-black/70" : "bg-black"
-      } p-4 text-sm font-Poppins tracking-widest gap-3 text-white active:scale-[.96] hover:bg-black/80 transition ease-linear cursor-pointer duration-200 rounded-md bg-black w-full`}
+        disabled || disabled_2 ? "bg-black/70" : "bg-black active:scale-[.96]"
+      } p-4 text-sm font-Poppins tracking-widest gap-3 text-white hover:bg-black/80 transition ease-linear cursor-pointer duration-200 rounded-md bg-black w-full`}
     >
       {disabled ? (
         <div className="flex items-center justify-center">
