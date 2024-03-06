@@ -82,7 +82,7 @@ const Product = () => {
           {product?.img?.map((i, idx) => (
             <div
               key={idx}
-              className="md:w-40 h-32 z-[99999999] border-solid border-[2px] hover:border-gray-800 border-transparent hover:shadow-lg transition-all ease-linear duration-100 cursor-pointer"
+              className="w-14 h-14 border-solid p-[1px] bg-white/50 hover:border-[0px] hover:border-b-[1px] border-[1px] mb-3 border-transparent hover:border-b-black transition duration-200 ease-linear"
             >
               <img
                 onMouseOver={handleImage}
