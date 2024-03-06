@@ -146,14 +146,14 @@ const Cart = ({ open, disabled }) => {
             <h1
               className={`${
                 isDesktopOrLaptop
-                  ? "flex items-center justify-start gap-1"
+                  ? "flex items-center text-sm sm:text-[16px] justify-start gap-1"
                   : "hidden"
               }`}
             >
               <FaInfo /> Scroll to right to see all the information
             </h1>
           </div>
-          <div className="flex items-start overflow-y-scroll h-auto py-2 font-Roboto justify-start flex-col gap-2">
+          <div className="flex items-start overflow-scroll h-auto py-2 font-Roboto justify-start flex-col gap-2">
             {products?.length > 0 ? (
               products.map((product) => {
                 return (
