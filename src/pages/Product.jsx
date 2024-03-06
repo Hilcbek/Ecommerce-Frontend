@@ -127,7 +127,7 @@ const Product = () => {
           )}
           <span className="ml-2">${product?.new_price}</span>
         </div>
-        <div className="flex items-center justify-start gap-3 md:gap-0 w-full md:flex-row flex-col">
+        <div className="flex items-center justify-start gap-5 md:gap-0 w-full md:flex-row flex-col">
           <div className="flex items-center md:items-start justify-center md:justify-start gap-4 md:ml-4 my-3 colorScroll">
             {product?.colors?.map((color, idx) => (
               <div
@@ -142,11 +142,11 @@ const Product = () => {
           </div>
           <div
             ref={dropSize}
-            className="mx-auto relative md:ml-10 flex items-center justify-center flex-col"
+            className="mx-auto relative md:ml-10 flex mb-5 sm:mt-0 items-center justify-center flex-col"
           >
             <h1
               onClick={() => setOpen((prev) => !prev)}
-              className="cursor-pointer transition duration-75 border-solid border-[1px] z-[9999] active:scale-[.94] border-black font-Roboto p-1 w-60 md:w-28 text-center tracking-wide"
+              className="cursor-pointer transition duration-75 border-solid border-[1px] z-[9999] active:scale-[.94] border-black font-Roboto p-1 sm:p-2 w-60 md:w-28 text-center tracking-wide"
             >
               Size
             </h1>

@@ -268,7 +268,7 @@ const Cart = ({ open, disabled }) => {
               >
                 {cookies.access_token ? (
                   loading ? (
-                    <div>
+                    <div className="flex items-center justify-center gap-1">
                       <ClipLoader
                         color={"#fff"}
                         loading={loading}
