@@ -146,7 +146,7 @@ const Product = () => {
           >
             <h1
               onClick={() => setOpen((prev) => !prev)}
-              className="cursor-pointer transition duration-75 border-solid border-[1px] z-[9999] active:scale-[.94] border-black font-Roboto p-1 sm:p-2 w-60 md:w-28 text-center tracking-wide"
+              className="cursor-pointer transition duration-75 border-solid border-[1px] z-[9999] active:scale-[.94] border-black font-Roboto p-3 sm:p-1 w-60 md:w-28 text-center tracking-wide"
             >
               Size
             </h1>
