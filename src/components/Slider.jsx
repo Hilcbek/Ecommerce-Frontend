@@ -104,7 +104,7 @@ const Slider = ({ product, scroll }) => {
           >
             <h1
               onClick={() => setOpen((prev) => !prev)}
-              className="cursor-pointer p-2 border-solid border-[1px] z-[9999] active:scale-[.94] transition-all duration-200 ease-linear border-black rounded-[4px] w-full md:w-28 text-center tracking-wide"
+              className="cursor-pointer p-3 lg:p-2 border-solid border-[1px] z-[9999] active:scale-[.94] transition-all duration-200 ease-linear border-black rounded-[4px] w-full md:w-28 text-center tracking-wide"
             >
               Size
             </h1>
