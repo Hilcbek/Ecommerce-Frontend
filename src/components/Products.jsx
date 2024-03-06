@@ -1,24 +1,30 @@
 import React, { useEffect, useState } from "react";
 import Product from "./Product";
 import { baseUrl } from "../../libs/op";
+import ClipLoader from "react-spinners/ClipLoader";
 import PuffLoader from "react-spinners/PuffLoader";
 const Products = ({ bool, filtered }) => {
-  let [products, setProducts] = useState(null);
+  let [products, setProducts] = useState([]);
   let [loading, setLoading] = useState(false);
+  let [limit, setLimit] = useState(4);
+  let [page, setPage] = useState(1);
   useEffect(() => {
     let Fetch = () => {
       setLoading(true);
       baseUrl
-        .get(`/product`)
+        .get(`/product/load/get-Product?page=${page}&limit=${limit}`)
         .then((res) => {
           return res.data;
         })
-        .then((data) => setProducts(data.data))
+        .then((data) => setProducts([...products, ...data.data]))
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
     };
     Fetch();
-  }, []);
+  }, [page]);
+  let handlePage = () => {
+    setPage(page + 1);
+  };
   return (
     <div
       className={`${
@@ -49,6 +55,24 @@ const Products = ({ bool, filtered }) => {
           ))
         )}
       </div>
+      <button
+        onClick={() => handlePage()}
+        disabled={loading}
+        className={`${
+          loading ? "bg-gray-200" : "bg-transparent"
+        } border-black p-3 flex active:scale-[.96] transition-all ease-linear duration-150 cursor-pointer items-center justify-center gap-2 border-solid border-[1px] tracking-wide px-6 font-medium font-Roboto mt-5`}
+      >
+        {loading && (
+          <ClipLoader
+            color={"#000"}
+            loading={loading}
+            size={20}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        )}
+        {loading ? "Loading" : "Load more"}
+      </button>
     </div>
   );
 };
