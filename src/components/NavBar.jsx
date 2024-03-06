@@ -75,14 +75,14 @@ const NavBar = () => {
             {cookies?.access_token ? (
               <>
                 <p className="flex font-bold items-center justify-start gap-2">
-                  Hello! 👋 <span>{username}</span>
+                  Hello!👋 <span>{username}</span>
                 </p>
                 <button
                   onClick={() => {
                     handleLogout();
                     cartModal.onClose();
                   }}
-                  className="p-1 text-[12px] border-solid border-gray-300 border-[1px] rounded-[4px]"
+                  className="p-1 text-[12px] border-solid border-black border-[1px] rounded-[4px]"
                 >
                   Logout
                 </button>
@@ -91,13 +91,13 @@ const NavBar = () => {
               <>
                 <button
                   onClick={regModal.onOpen}
-                  className="p-1 text-[13px] font-semibold tracking-widest border-solid border-gray-500 border-[1px] rounded-[4px]"
+                  className="p-1 text-[13px] font-semibold tracking-widest border-solid border-black border-[1px]"
                 >
                   SIGN-UP
                 </button>
                 <button
                   onClick={logModal.onOpen}
-                  className="p-1 text-[13px] font-semibold tracking-widest border-solid border-gray-500 border-[1px] rounded-[4px]"
+                  className="p-1 text-[13px] font-semibold tracking-widest border-solid border-black border-[1px]"
                 >
                   SIGN-IN
                 </button>
