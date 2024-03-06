@@ -155,7 +155,7 @@ const Product = () => {
                 open
                   ? "opacity-100 translate-y-0 z-[9999999]"
                   : "opacity-0 translate-y-full z-0"
-              } absolute shadow-md bg-red-500 transition-[.01s] font-Roboto transform rounded-md p-2 -top-24 md:-top-20 left-2 lg:left-0`}
+              } absolute shadow-md bg-white transition-[.01s] font-Roboto transform rounded-md p-2 -top-24 md:-top-20 left-2 lg:left-0`}
             >
               {product?.size?.map((size, idx) => (
                 <p
