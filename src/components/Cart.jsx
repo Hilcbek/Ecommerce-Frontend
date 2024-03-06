@@ -135,7 +135,7 @@ const Cart = ({ open, disabled }) => {
         </div>
         <div className="w-11/12 mx-auto h-[100%] flex items-start justify-start flex-col">
           <div className="flex items-start gap-5 justify-start flex-col h-36 w-full bg-white/80 border-solid border-b-[1px] border-gray-100">
-            <h1 className="flex text-4xl tracking-wider font-Roboto underline items-center justify-center gap-1">
+            <h1 className="flex text-2xl sm:text-4xl tracking-wider font-Roboto underline items-center justify-center gap-1">
               SHOPPING BAG (<MdOutlineShoppingBag size={32} />)
             </h1>
             {amount > 0 && (
