@@ -142,7 +142,7 @@ const Product = () => {
           </div>
           <div
             ref={dropSize}
-            className="mx-auto relative bg-red-400 md:ml-10 flex mb-5 sm:mt-0 items-center justify-center flex-col"
+            className="mx-auto relative md:ml-10 flex mb-5 sm:mt-0 items-center justify-center flex-col"
           >
             <h1
               onClick={() => setOpen((prev) => !prev)}
@@ -155,7 +155,7 @@ const Product = () => {
                 open
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-full"
-              } absolute bg-white shadow-md transition-[.01s] font-Roboto transform rounded-md p-2 -top-36 z-[999] md:-top-20 left-2 lg:left-0`}
+              } absolute bg-white shadow-md bg-red-500 transition-[.01s] font-Roboto transform rounded-md p-2 -top-32 z-[999] md:-top-20 left-2 lg:left-0`}
             >
               {product?.size?.map((size, idx) => (
                 <p
