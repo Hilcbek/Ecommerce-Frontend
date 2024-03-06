@@ -7,9 +7,11 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { ClipLoader } from "react-spinners";
-import { MdShoppingBag } from "react-icons/md";
+import { MdOutlineShoppingBag, MdShoppingBag } from "react-icons/md";
 import { MdOutlineClose } from "react-icons/md";
 import { CiBag1 } from "react-icons/ci";
+import { useMediaQuery } from "react-responsive";
+import { FaInfo } from "react-icons/fa";
 
 import {
   DELETE_PRODUCT,
@@ -21,6 +23,9 @@ import { baseUrl } from "../../libs/op";
 import { LOGOUT_ACTION } from "../../Toolkit/Slice";
 import useLogin from "../../Hooks/useLoginHook";
 const Cart = ({ open, disabled }) => {
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(max-width: 1108px)",
+  });
   let cartModal = useCart();
   let dispatch = useDispatch();
   let [loading, setLoading] = useState(false);
@@ -30,7 +35,7 @@ const Cart = ({ open, disabled }) => {
     if (disabled) return;
     setTimeout(() => {
       cartModal.onClose();
-    }, 300);
+    }, 400);
   }, [disabled]);
   let [showModal, setShowModal] = useState(open);
   useEffect(() => {
@@ -45,7 +50,16 @@ const Cart = ({ open, disabled }) => {
   };
   let logModal = useLogin();
   let ResetCart = () => {
-    dispatch(RESET_PRODUCT({}));
+    if (products.length > 0) {
+      dispatch(RESET_PRODUCT({}));
+      toast.success(
+        products.length > 0
+          ? "Products removed successfully"
+          : "Product removed successfully!"
+      );
+    } else {
+      toast.success("There is no product to remove!");
+    }
   };
   let handleAmountChange = (sign, id, color, size) => {
     dispatch(UPDATE_PRODUCT_AMOUNT({ sign, id, color, size }));
@@ -111,24 +125,35 @@ const Cart = ({ open, disabled }) => {
       <div
         className={`${
           showModal ? "opacity-100 z-[9999999]" : "opacity-0 -z-0"
-        } absolute transition-all p-5 transform ease-linear duration-200 h-5/6 overflow-scroll gap-2 max-h-5/6 top-16 shadow-md shadow-black w-11/12 md:w-11/12 lg:w-10/12 xl:w-9/12 bg-[#e3dede] mx-auto flex items-start justify-start flex-col`}
+        } absolute transition-all p-5 pb-0 rounded-xl transform ease-linear duration-200 h-5/6 overflow-scroll gap-2 max-h-5/6 top-16 shadow-md shadow-black w-11/12 md:w-11/12 lg:w-10/12 xl:w-9/12 bg-white mx-auto flex items-start justify-start flex-col`}
       >
         <div
           onClick={handleClose}
-          className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center border-solid border-gray-500 active:scale-[.96] border-[1px] transition-all ease-linear duration-200 active:border-gray-600  cursor-pointer"
+          className="fixed top-2 right-2 w-8 h-8 flex items-center justify-center border-solid border-gray-500 active:scale-[.96] border-[1px] transition-all ease-linear duration-200 active:border-gray-600  cursor-pointer"
         >
           <MdOutlineClose />
         </div>
-        <div className="w-11/12 mx-auto gap-4 flex items-start justify-start flex-col">
-          <h1 className="flex text-xl font-light tracking-wider font-Roboto underline items-center justify-center gap-1">
-            SHOPPING BAG <MdShoppingBag size={24} />
-          </h1>
-          {amount > 0 && (
-            <p className="lg:text-xs font-Roboto font-medium text-gray-800">
-              {amount} items
-            </p>
-          )}
-          <div className="flex items-start max-h-[90%] font-Poppins justify-start flex-col gap-2">
+        <div className="w-11/12 mx-auto h-[100%] flex items-start justify-start flex-col">
+          <div className="flex items-start gap-5 justify-start flex-col h-36 w-full bg-white/80 border-solid border-b-[1px] border-gray-100">
+            <h1 className="flex text-4xl tracking-wider font-Roboto underline items-center justify-center gap-1">
+              SHOPPING BAG (<MdOutlineShoppingBag size={32} />)
+            </h1>
+            {amount > 0 && (
+              <p className="lg:text-xs font-Roboto font-bold text-gray-800">
+                Currently your cart has {amount} items!
+              </p>
+            )}
+            <h1
+              className={`${
+                isDesktopOrLaptop
+                  ? "flex items-center justify-start gap-1"
+                  : "hidden"
+              }`}
+            >
+              <FaInfo /> Scroll to right to see all the information
+            </h1>
+          </div>
+          <div className="flex items-start overflow-y-scroll h-auto py-2 font-Roboto justify-start flex-col gap-2">
             {products?.length > 0 ? (
               products.map((product) => {
                 return (
@@ -141,11 +166,11 @@ const Cart = ({ open, disabled }) => {
                           product.SizeChoice
                         )
                       }
-                      className="w-32 mr-4 p-2 active:scale-[.92] hover:bg-rose-600 hover:text-white transition-all duration-300 ease-linear flex items-center justify-center cursor-pointer border-solid border-[1px] border-gray-500"
+                      className="w-32 mr-4 p-2 active:scale-[.92] transition-all duration-300 ease-linear flex items-center justify-center cursor-pointer border-solid border-[1px] border-gray-500"
                     >
                       <MdOutlineClose size={20} />
                     </div>
-                    <div className="w-7/12">
+                    <div className="md:w-7/12">
                       <img
                         className="w-full h-full object-contain"
                         src={product.img[0]}
@@ -191,7 +216,7 @@ const Cart = ({ open, disabled }) => {
                               product.SizeChoice
                             )
                           }
-                          className="w-6 h-6 flex items-center justify-center border-solid border-gray-300 border-[1px] text-xs"
+                          className="w-6 h-6 flex items-center justify-center border-solid border-black border-[1px] text-xs"
                         >
                           +
                         </button>
@@ -205,7 +230,7 @@ const Cart = ({ open, disabled }) => {
                               product.SizeChoice
                             )
                           }
-                          className="w-6 h-6 flex items-center justify-center border-solid border-gray-300 border-[1px] text-xs"
+                          className="w-6 h-6 flex items-center justify-center border-solid border-black border-[1px] text-xs"
                         >
                           -
                         </button>
@@ -223,53 +248,51 @@ const Cart = ({ open, disabled }) => {
               </h1>
             )}
           </div>
-        </div>
-        <div className="flex items-center justify-between w-full">
-          <h1 className="w-full flex items-center justify-start gap-4">
-            SUBTOTAL:{" "}
-            <span className="text-xl font-bold font-Roboto">
-              ${Number(total).toFixed(2)}
-            </span>
-          </h1>
-          <div className="flex items-end mt-10 gap-3 justify-end w-full flex-col">
-            <button
-              onClick={handleCheckout}
-              disabled={loading || products.length === 0}
-              style={{
-                cursor: products.length > 0 ? "pointer" : "not-allowed",
-              }}
-              className={`${
-                products.length > 0 && !loading
-                  ? "active:scale-[.96] bg-sky-500"
-                  : "bg-sky-300"
-              } p-3 text-[11px] tracking-widest transition flex items-center gap-2 justify-center w-8/12 duration-300 ease-in-out text-white`}
-            >
-              {cookies.access_token ? (
-                loading ? (
-                  <>
-                    <ClipLoader
-                      color={"#fff"}
-                      loading={loading}
-                      size={20}
-                      aria-label="Loading Spinner"
-                      data-testid="loader"
-                    />{" "}
-                    <span className="">PROCESSING</span>
-                  </>
+          <div className="w-full sm:flex-row border-solid border-gray-100 border-t-[1px] flex-col font-bold font-Roboto tracking-wider text-xl flex items-center justify-center sm:justify-between">
+            <div className="flex items-center justify-start gap-1">
+              <h1 className="text-gray-600">Subtotal:</h1>
+              <span className="text-[16px]">${total}</span>
+            </div>
+            <div className="flex items-center mt-2 gap-3 justify-center flex-col">
+              <button
+                onClick={handleCheckout}
+                disabled={loading || products.length === 0}
+                style={{
+                  cursor: products.length > 0 ? "pointer" : "not-allowed",
+                }}
+                className={`${
+                  products.length > 0 && !loading
+                    ? "active:scale-[.96] bg-black text-white text-sm"
+                    : "bg-black/80"
+                } p-4  text-white w-full text-sm`}
+              >
+                {cookies.access_token ? (
+                  loading ? (
+                    <div>
+                      <ClipLoader
+                        color={"#fff"}
+                        loading={loading}
+                        size={20}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                      />{" "}
+                      <span className="">PROCESSING</span>
+                    </div>
+                  ) : (
+                    <p>PROCEED TO CHECKOUT</p>
+                  )
                 ) : (
-                  "PROCEED TO CHECKOUT"
-                )
-              ) : (
-                "LOGIN TO PROCEED TO CHECKOUT"
-              )}
-            </button>
-            <button
-              disabled={loading}
-              onClick={ResetCart}
-              className="text-rose-500 w-8/12 p-3 font-Roboto text-xl active:scale-[.97] transition duration-200 ease-in-out"
-            >
-              Reset
-            </button>
+                  <p>LOGIN TO PROCEED TO CHECKOUT</p>
+                )}
+              </button>
+              <button
+                disabled={loading}
+                onClick={ResetCart}
+                className="text-black border-solid border-black border-[1px] w-full p-4 text-sm"
+              >
+                Reset
+              </button>
+            </div>
           </div>
         </div>
       </div>

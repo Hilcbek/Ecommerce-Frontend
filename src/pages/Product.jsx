@@ -47,57 +47,33 @@ const Product = () => {
   }, [id]);
   let [color, setColor] = useState(product?.colors?.[0]);
   let [image, setImage] = useState(null);
-  let [ChoiceColors, setColors] = useState([]);
-  let [ChoiceSizes, setSizes] = useState([]);
+  let [options, setOptions] = useState({
+    ColorChoice: product?.colors?.[0],
+    SizeChoice: product?.size?.[0],
+  });
   useEffect(() => {
-    setSizes([product?.size?.[0]]), setColors([product?.colors?.[0]]);
-  }, []);
+    setOptions({
+      ColorChoice: product?.colors?.[0],
+      SizeChoice: product?.size?.[0],
+    });
+  }, [product]);
   let cartModal = useCart();
   let handleImage = (e) => {
     setImage(e.target.src);
   };
   let dispatch = useDispatch();
-  useEffect(() => {
-    let greater =
-      ChoiceColors.length > ChoiceSizes.length
-        ? ChoiceColors.length
-        : ChoiceSizes.length;
-    greater = greater > 0 ? greater : 1;
-    setQuantity(greater);
-  }, [ChoiceColors, ChoiceSizes]);
   let handleAddToCart = () => {
     dispatch(
       ADD_PRODUCT({
         ...product,
         amount: quantity,
-        ChoiceSizes,
-        ChoiceColors,
+        ChoiceSize: options.SizeChoice,
+        ChoiceColor: options.ColorChoice,
       })
     );
     toast.success("Item added successfully", {
       position: "top-left",
     });
-  };
-  let handleColorsAndSized = (type, value) => {
-    if (type === "color") {
-      if (ChoiceColors.includes(value)) {
-        let filteredColors = ChoiceColors.filter((color) => {
-          return color !== value;
-        });
-        setColors(filteredColors);
-        return;
-      }
-      setColors((prevState) => [...prevState, value]);
-    } else {
-      if (ChoiceSizes.includes(value)) {
-        let filteredColors = ChoiceSizes.filter((color) => {
-          return color !== value;
-        });
-        setSizes(filteredColors);
-        return;
-      }
-      setSizes((prevState) => [...prevState, value]);
-    }
   };
   return (
     <div className="w-full min-h-[100vh] pt-[75.2px] transition-all lg:pb-0 gap-4 pb-3 lg:flex-row xs:flex-col duration-300 ease-linear bg-white flex items-center justify-center">
@@ -106,7 +82,7 @@ const Product = () => {
           {product?.img?.map((i, idx) => (
             <div
               key={idx}
-              className="md:w-40 h-32 z-[99999999] border-solid border-[2px] hover:border-gray-300 border-gray-400 md:border-gray-100 hover:shadow-lg transition-all ease-linear duration-500 cursor-pointer"
+              className="md:w-40 h-32 z-[99999999] border-solid border-[2px] hover:border-gray-800 border-transparent hover:shadow-lg transition-all ease-linear duration-100 cursor-pointer"
             >
               <img
                 onMouseOver={handleImage}
@@ -130,13 +106,13 @@ const Product = () => {
           />
         </div>
       </div>
-      <div className="w-full md:mr-10 h-full gap-2 lg:gap-6 flex items-start justify-center flex-col overflow-hidden px-3 lg:px-0">
-        <h1 className="text-3xl md:text-5xl lg:text-7xl tracking-widest font-Roboto font-extralight relative before:absolute before:left-32 before:bottom-0 before:w-6/12 before:h-[1px] before:bg-black before:content-[''] after:absolute after:left-20 lg:after:left-42 after:-bottom-4 after:w-6/12 after:h-1 after:bg-black after:content-['']">
+      <div className="w-full md:mr-10 h-full gap-2 lg:gap-8 flex items-start justify-center flex-col overflow-hidden px-3 lg:px-0">
+        <h1 className="text-3xl lg:text-4xl tracking-widest font-Roboto relative before:absolute before:left-32 before:bottom-0 before:w-6/12 before:h-[1px] before:bg-black before:content-[''] after:absolute after:left-20 lg:after:left-42 after:-bottom-4 after:w-6/12 after:h-1 after:bg-black after:content-['']">
           {product?.title}
         </h1>
         <p
           onClick={() => setDrop((drop) => !drop)}
-          className="md:w-10/12 text-xl font-light w-full cursor-pointer"
+          className="md:w-10/12 font-Roboto w-full cursor-pointer"
         >
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           {isDesktopOrLaptop
@@ -145,7 +121,7 @@ const Product = () => {
                 .concat("...")
             : product?.desc}
         </p>
-        <div className="bg-white font-light shadow-sm flex items-center justify-center gap-3 text-3xl px-2 p-1">
+        <div className="bg-white font-Roboto shadow-sm flex items-center justify-center gap-3  font-bold px-2 p-1">
           {product?.old_price > 0 && (
             <span className="line-through">${product?.old_price}</span>
           )}
@@ -155,14 +131,11 @@ const Product = () => {
           <div className="flex items-center md:items-start justify-center md:justify-start gap-4 md:ml-4 my-3 colorScroll">
             {product?.colors?.map((color, idx) => (
               <div
-                onClick={() => {
-                  setColor(color);
-                  handleColorsAndSized("color", color);
-                }}
-                key={idx}
+                onClick={() => setOptions({ ...options, ColorChoice: color })}
+                key={color}
                 className={`${
-                  ChoiceColors?.includes(color) && "scale-[1.2]"
-                } w-7 h-7 rounded-full active:scale-[.93] cursor-pointer before:absolute before:content-[""] before:h-9 before:w-9 before:border-solid before:border-[1px] before:rounded-full before:-top-[4px] before:-left-1 before:border-gray-400 relative transition duration-300 ease-in-out`}
+                  options.ColorChoice === color && "scale-[1.2]"
+                } w-5 h-5 rounded-full active:scale-[.93] cursor-pointer before:absolute before:content-[""] before:h-7 before:w-7 before:border-solid before:border-[1px] before:rounded-full before:-top-[4px] before:-left-1 before:border-gray-400 relative`}
                 style={{ backgroundColor: color, borderColor: color }}
               ></div>
             ))}
@@ -173,7 +146,7 @@ const Product = () => {
           >
             <h1
               onClick={() => setOpen((prev) => !prev)}
-              className="cursor-pointer p-3 border-solid border-[1px] z-[9999] active:scale-[.94] transition-all duration-200 ease-linear border-gray-200 rounded-[4px] w-60 md:w-28 text-center tracking-wide"
+              className="cursor-pointer transition duration-75 border-solid border-[1px] z-[9999] active:scale-[.94] border-black font-Roboto p-1 w-60 md:w-28 text-center tracking-wide"
             >
               Size
             </h1>
@@ -182,15 +155,18 @@ const Product = () => {
                 open
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-full"
-              } absolute bg-white shadow-md transition duration-300 ease-linear transform rounded-md p-2 -top-36 z-[999] md:-top-28 left-2 lg:left-0`}
+              } absolute bg-white shadow-md transition-[.01s] font-Roboto transform rounded-md p-2 -top-36 z-[999] md:-top-20 left-2 lg:left-0`}
             >
               {product?.size?.map((size, idx) => (
                 <p
-                  onClick={() => handleColorsAndSized("size", size)}
-                  key={idx}
+                  onClick={() => {
+                    setOptions({ ...options, SizeChoice: size });
+                    setOpen((open) => !open);
+                  }}
+                  key={size}
                   className={`${
-                    ChoiceSizes?.includes(size) && "bg-gray-400"
-                  } p-3 md:p-[7.2px] w-[215px] md:w-[100px] cursor-pointer border-solid border-gray-100 border-b-[1px] active:scale-[.98] text-xs font-medium transition duration-300`}
+                    options.SizeChoice === size && "bg-gray-400"
+                  } p-3 md:p-[7.2px] w-[215px] md:w-[100px] cursor-pointer border-solid border-gray-100 border-b-[1px] active:scale-[.98] text-xs font-medium`}
                 >
                   {size}
                 </p>
@@ -205,17 +181,15 @@ const Product = () => {
               style={{ cursor: quantity === 1 ? "not-allowed" : "pointer" }}
               onClick={() => {
                 setQuantity((quantity) => quantity - 1);
-                setSizes([]);
-                setColors([]);
               }}
-              className="w-12 z-[9999] h-12 rounded-sm flex items-center justify-center border-solid border-[1px] border-gray-300"
+              className="w-8 z-[9999] h-8 rounded-sm flex items-center justify-center border-solid border-[1px] border-black"
             >
               -
             </button>
-            <span>{quantity}</span>
+            <span className="mx-2 font-Roboto">{quantity}</span>
             <button
               onClick={() => setQuantity((quantity) => quantity + 1)}
-              className="w-12 z-[9999] h-12 rounded-sm flex items-center justify-center border-solid border-[1px] border-gray-300"
+              className="w-8 z-[9999] h-8 rounded-sm flex items-center justify-center border-solid border-[1px] border-black"
             >
               +
             </button>
@@ -230,7 +204,7 @@ const Product = () => {
           </abbr>
           <button
             onClick={handleAddToCart}
-            className="p-3 flex items-center justify-center w-full md:w-60 border-solid border-[1px] font-medium tracking-wider cursor-pointer active:scale-[.98] transition duration-200 ease-linear border-black"
+            className="p-3 flex items-center font-Roboto justify-center w-full md:w-60 border-solid border-[1px] font-medium tracking-wider cursor-pointer active:scale-[.98] transition duration-200 ease-linear border-black"
           >
             Add to Cart
             <CiShoppingCart size={24} className="ml-2" />

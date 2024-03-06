@@ -72,7 +72,7 @@ const Product = ({ product }) => {
                   options.SizeChoice.length > 0 &&
                   options.SizeChoice === size &&
                   "bg-gray-400"
-                } text-xs border-solid md:w-4 md:h-4 w-8 flex items-center justify-center text-center h-8 border-gray-300 border-b-[1px] p-1`}
+                } text-xs border-solid flex items-center justify-center text-center border-gray-300 border-b-[1px] p-1`}
               >
                 {size}
               </div>
@@ -107,7 +107,7 @@ const Product = ({ product }) => {
           <span className="line-through">${product?.old_price}</span>
           <span className="ml-2 font-bold">${product?.new_price}</span>
         </div>
-        <h1 className="text-md font-Roboto font-light">{product.title}</h1>
+        <h1 className="font-Roboto font-semibold">{product.title}</h1>
         <div className="flex items-center md:items-start justify-center md:justify-start gap-3 my-2 colorScroll">
           {product?.colors?.map((color) => (
             <div
@@ -124,8 +124,9 @@ const Product = ({ product }) => {
         </div>
         <div className="w-full flex items-center justify-start gap-1">
           {product?.categories?.map((cat, idx) => (
-            <p key={idx} className="font-Quicksand text-xs">
-              {cat},
+            <p key={idx} className="font-Roboto font-medium text-xs">
+              {cat}
+              {idx < product?.categories.length - 1 ? "," : ""}
             </p>
           ))}
         </div>

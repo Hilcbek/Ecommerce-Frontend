@@ -26,7 +26,7 @@ const Products = ({ bool, filtered }) => {
       } flex items-center justify-center flex-col w-full`}
     >
       {bool && (
-        <h1 className="text-5xl font-extralight font-Roboto tracking-widest my-4 before:absolute before:-left-20 before:bottom-0 before:w-9/12 before:h-1 before:bg-black before:content-[''] after:absolute after:left-12 after:-bottom-4 after:w-10/12 after:h-1 after:bg-black after:content-[''] relative">
+        <h1 className="text-2xl font-Roboto tracking-widest my-4 before:absolute before:-left-10 before:-bottom-2 before:w-9/12 before:h-1 before:bg-black before:content-[''] after:absolute after:left-8 after:-bottom-4 after:w-10/12 after:h-1 after:bg-black after:content-[''] relative">
           ALL ITEMS
         </h1>
       )}

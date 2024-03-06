@@ -6,6 +6,7 @@ import { ADD_PRODUCT } from "../../Toolkit/ProductSlice";
 import { SlReload } from "react-icons/sl";
 import useCart from "../../Hooks/useCartHook";
 import { toast } from "react-hot-toast";
+import ClipLoader from "react-spinners/ClipLoader";
 const Slider = ({ product, scroll }) => {
   let [drop, setDrop] = useState(false);
   let [quantity, setQuantity] = useState(1);
@@ -38,7 +39,7 @@ const Slider = ({ product, scroll }) => {
         })
       );
       toast.success("Item added successfully", {
-        position: "top-left",
+        position: "top-center",
       });
     } else {
       toast.error("Make sure you have selected your item color & size!", {
@@ -52,17 +53,23 @@ const Slider = ({ product, scroll }) => {
       className="w-full h-full transition-all lg:pb-0 gap-4 pb-3 lg:flex-row xs:flex-col duration-300 ease-linear bg-white flex items-center justify-center"
     >
       <div className="w-screen h-full">
-        <img
+        {product.img[2] ? <img
           src={product.img[2]}
           className="w-full h-full object-cover lg:object-contain"
           alt=""
-        />
+        /> : <ClipLoader
+            color={"#fff"}
+            loading={true}
+            size={19}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />}
       </div>
       <div className="w-full h-full gap-3 lg:gap-6 flex items-start justify-center flex-col overflow-hidden px-3 lg:px-0">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl tracking-widest font-Quicksand font-light relative before:absolute before:left-32 before:bottom-0 before:w-6/12 before:h-1 before:bg-black before:content-[''] after:absolute after:left-20 lg:after:left-42 after:-bottom-4 after:w-6/12 after:h-1 after:bg-black after:content-['']">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl tracking-widest font-Roboto font-light relative before:absolute before:left-32 before:bottom-0 before:w-6/12 before:h-1 before:bg-black before:content-[''] after:absolute after:left-20 lg:after:left-42 after:-bottom-4 after:w-6/12 after:h-1 after:bg-black after:content-['']">
           {product?.title}
         </h1>
-        <p className="md:w-10/12 text-xl tracking-wider font-light">
+        <p className="md:w-10/12 text-xl font-Roboto">
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           {isDesktopOrLaptop
             ? String(product?.desc)
@@ -70,7 +77,7 @@ const Slider = ({ product, scroll }) => {
                 .concat("...")
             : product?.desc}
         </p>
-        <div className="bg-white font-light shadow-sm flex items-center justify-center gap-3 text-3xl px-2 p-1">
+        <div className="bg-white font-Roboto shadow-sm flex items-center justify-center gap-3 text-3xl px-2 p-1">
           {product?.old_price > 0 && (
             <span className="line-through">${product?.old_price}</span>
           )}
@@ -93,11 +100,11 @@ const Slider = ({ product, scroll }) => {
           </div>
           <div
             ref={dropSize}
-            className="mx-auto relative md:ml-10 w-full flex items-center justify-center flex-col"
+            className="mx-auto relative font-Roboto md:ml-10 w-full flex items-center justify-center flex-col"
           >
             <h1
               onClick={() => setOpen((prev) => !prev)}
-              className="cursor-pointer p-3 border-solid border-[1px] z-[9999] active:scale-[.94] transition-all duration-200 ease-linear border-gray-500 rounded-[4px] w-full md:w-28 text-center tracking-wide"
+              className="cursor-pointer p-2 border-solid border-[1px] z-[9999] active:scale-[.94] transition-all duration-200 ease-linear border-black rounded-[4px] w-full md:w-28 text-center tracking-wide"
             >
               Size
             </h1>
@@ -110,7 +117,10 @@ const Slider = ({ product, scroll }) => {
             >
               {product?.size?.map((size) => (
                 <p
-                  onClick={() => setOptions({ ...options, SizeChoice: size })}
+                  onClick={() => {
+                    setOptions({ ...options, SizeChoice: size });
+                    setOpen((open) => !open);
+                  }}
                   key={size}
                   className={`${
                     options.SizeChoice.length > 0 &&
@@ -134,14 +144,14 @@ const Slider = ({ product, scroll }) => {
                 setSizes({});
                 setColors({});
               }}
-              className="w-10 h-10 border-solid border-[1px] hover:border-sky-500 transition-all duration-200 ease-linear border-gray-200"
+              className="w-8 z-[9999] h-8  border-solid border-[1px] font-Roboto transition-all duration-200 ease-linear border-black"
             >
               -
             </button>
-            <span className="w-6">{quantity}</span>
+            <span className="mx-2 font-Roboto">{quantity}</span>
             <button
               onClick={() => setQuantity((quantity) => quantity + 1)}
-              className="w-10 h-10 z-[99999] border-solid border-[1px] hover:border-sky-500 transition-all duration-200 ease-linear border-gray-200"
+              className="w-8 h-8  z-[99999] border-solid border-[1px] font-Roboto transition-all duration-200 ease-linear border-black"
             >
               +
             </button>
@@ -161,7 +171,7 @@ const Slider = ({ product, scroll }) => {
           </abbr>
           <button
             onClick={handleAddToCart}
-            className="p-3 flex items-center justify-center md:w-60 border-solid border-[1px] font-medium tracking-wider cursor-pointer active:scale-[.98] transition duration-200 ease-linear border-gray-600"
+            className="p-3 flex items-center justify-center border-solid border-[1px] font-Roboto tracking-wider cursor-pointer active:scale-[.98] transition duration-200 ease-linear border-black"
           >
             Add to Cart <CiShoppingCart size={24} className="ml-2" />
           </button>

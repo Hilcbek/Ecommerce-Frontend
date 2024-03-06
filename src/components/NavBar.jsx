@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { IoCartOutline, IoClose } from "react-icons/io5";
+import { IoClose } from "react-icons/io5";
+import { MdOutlineShoppingBag } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 import useCart from "../../Hooks/useCartHook";
 import { useSelector, useDispatch } from "react-redux";
@@ -62,7 +63,7 @@ const NavBar = () => {
           </Link>
         </ul>
         <Link to={"/"} className="flex items-center justify-center">
-          <h1 className="font-bold xs:text-xl sm:text-2xl font-Roboto tracking-wider">
+          <h1 className="font-bold xs:text-xl sm:text-2xl font-Roboto tracking-wider flex items-center justify-start flex-col lg:flex-row">
             HULU.{" "}
             <span className="text-xs text-gray-500 font-extralight">
               (Version 2.0)
@@ -77,7 +78,10 @@ const NavBar = () => {
                   Hello! 👋 <span>{username}</span>
                 </p>
                 <button
-                  onClick={handleLogout}
+                  onClick={() => {
+                    handleLogout();
+                    cartModal.onClose();
+                  }}
                   className="p-1 text-[12px] border-solid border-gray-300 border-[1px] rounded-[4px]"
                 >
                   Logout
@@ -102,18 +106,18 @@ const NavBar = () => {
           </>
           <button
             onClick={cartModal.onOpen}
-            className="w-9 h-9 rounded-full flex items-center justify-center border-solid border-[1px] border-gray-300 relative"
+            className="w-9 h-9 flex items-center justify-center relative"
           >
-            <p className="w-5 h-5 -right-2 text-xs -top-1 flex items-center justify-center absolute rounded-full bg-sky-500 text-white">
+            <p className="w-5 h-5 -right-2 text-xs -top-1 flex items-center justify-center absolute rounded-full bg-[#053766] text-white">
               {amount}
             </p>
-            <IoCartOutline />
+            <MdOutlineShoppingBag size={32} />
           </button>
         </ul>
         <ul
           className={`${
             open ? "right-0" : "-right-[110%]"
-          } lg:hidden absolute flex-col transition h-screen w-10/12  shadow-lg shadow-black/60 z-[99999999] top-0 flex items-center pr-4 bg-white justify-center text-sm gap-4`}
+          } lg:hidden absolute flex-col transition-all ease-linear rounded-md h-[400px] w-10/12  shadow-lg shadow-black/80 z-[99999999] top-0 flex items-center pr-4 bg-white justify-center text-sm gap-4`}
         >
           <div
             onClick={() => setOpen((prev) => !prev)}
@@ -121,15 +125,23 @@ const NavBar = () => {
           >
             {open ? <IoCloseSharp /> : <AiOutlineMenu />}
           </div>
-          <div className="flex items-start justify-start pl-6 flex-col h-full w-full pt-10 gap-2">
+          <div className="flex items-start justify-start text-xl pl-6 flex-col h-full w-full pt-10 gap-2">
             {cookies?.access_token ? (
-              <div className="flex items-start justify-start h-full flex-col gap-2">
-                <p className="flex font-bold items-start justify-start flex-col gap-2">
-                  Hello! 👋 <span>{username}</span>
+              <div className="flex items-center justify-center w-full h-full flex-col gap-4">
+                <p
+                  className={`${
+                    username.length > 12 ? "flex-col" : "flex-row"
+                  } flex w-full font-bold text-2xl items-start justify-start gap-2 overflow-x-scroll`}
+                >
+                  <span>Hello! 👋 </span>
+                  <span>{username}</span>
                 </p>
                 <button
-                  onClick={handleLogout}
-                  className="p-2 w-full text-[12px] border-solid border-gray-300 border-[1px] rounded-[4px]"
+                  onClick={() => {
+                    handleLogout();
+                    cartModal.onClose();
+                  }}
+                  className="p-4 w-full text-xl font-bold border-solid border-black border-[1px] rounded-[4px]"
                 >
                   Logout
                 </button>
@@ -160,12 +172,12 @@ const NavBar = () => {
         </ul>
         <button
           onClick={cartModal.onOpen}
-          className="w-9 h-9 mr-14 mt-2 rounded-full lg:hidden flex items-center justify-center border-solid border-[1px] border-gray-300 relative"
+          className="mr-14 mt-2 w-9 h-9 lg:hidden flex items-center justify-center relative"
         >
-          <p className="w-5 h-5 -right-2 text-xs -top-1 flex items-center justify-center absolute rounded-full bg-sky-500 text-white">
+          <p className="w-5 h-5 -right-2 text-xs -top-1 flex items-center justify-center absolute rounded-full bg-[#053766] text-white">
             {amount}
           </p>
-          <IoCartOutline />
+          <MdOutlineShoppingBag size={32} />
         </button>
       </div>
     </nav>
