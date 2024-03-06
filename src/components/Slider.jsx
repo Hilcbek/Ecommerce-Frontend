@@ -73,7 +73,7 @@ const Slider = ({ product, scroll }) => {
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           {isDesktopOrLaptop
             ? String(product?.desc)
-                .substring(0, drop ? product?.desc?.length : 217)
+                .substring(0, drop ? product?.desc?.length : 217).concat('...')
                 .concat(`${drop ? 'show less' : 'show more'}`)
             : product?.desc}
         </p>
