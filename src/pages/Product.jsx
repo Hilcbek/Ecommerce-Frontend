@@ -107,7 +107,7 @@ const Product = () => {
         </div>
       </div>
       <div className="w-full md:mr-10 h-full gap-2 lg:gap-8 flex items-start justify-center flex-col overflow-hidden px-3 lg:px-0">
-        <h1 className="text-3xl lg:text-4xl tracking-widest font-Roboto relative before:absolute before:left-32 before:bottom-0 before:w-6/12 before:h-[1px] before:bg-black before:content-[''] after:absolute after:left-20 lg:after:left-42 after:-bottom-4 after:w-6/12 after:h-1 after:bg-black after:content-['']">
+        <h1 className="text-3xl lg:text-4xl tracking-widest font-Roboto relative before:absolute before:left-32 before:bottom-0 before:w-6/12 before:h-[1px] before:bg-black before:content-[''] after:absolute after:left-20 lg:after:left-42 md:after:-bottom-4 after:w-6/12 after:h-1 after:bg-black after:content-['']">
           {product?.title}
         </h1>
         <p
