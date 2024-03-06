@@ -46,7 +46,7 @@ const NavBar = () => {
   };
   let [open, setOpen] = useState(false);
   return (
-    <nav className={`fixed w-full top-0 z-[9999999999] bg-white`}>
+    <nav className={`fixed w-full font-Roboto top-0 z-[9999999999] bg-white`}>
       <Cart open={cartModal.open} disabled={false} />
       <div
         className={
