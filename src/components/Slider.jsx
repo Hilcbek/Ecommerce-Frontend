@@ -69,7 +69,7 @@ const Slider = ({ product, scroll }) => {
         <h1 className="text-4xl md:text-5xl lg:text-6xl tracking-widest font-Roboto font-light relative before:absolute before:left-32 before:bottom-0 before:w-6/12 before:h-1 before:bg-black before:content-[''] after:absolute after:left-20 lg:after:left-42 after:-bottom-4 after:w-6/12 after:h-1 after:bg-black after:content-['']">
           {product?.title}
         </h1>
-        <p className="md:w-10/12 text-xl font-Roboto">
+        <p onClick={() => setDrop((prev) => !prev)} className="md:w-10/12 text-xl font-Roboto">
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           {isDesktopOrLaptop
             ? String(product?.desc)
