@@ -37,7 +37,9 @@ const Products = ({ bool, filtered }) => {
         </h1>
       )}
       <div
-        className={`w-full grid xs:grid-cols-1 py-2 md:grid-cols-2 gap-3 lg:grid-cols-3 xl:grid-cols-4 ${
+        className={`${
+          loading ? "flex items-center justify-center" : "grid"
+        } w-full xs:grid-cols-1 py-2  min-h-[70vh] h-[70vh] md:grid-cols-2 gap-3 lg:grid-cols-3 xl:grid-cols-4 ${
           !bool && "xl:grid-cols-4"
         }`}
       >
