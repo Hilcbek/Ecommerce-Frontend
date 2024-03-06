@@ -153,9 +153,9 @@ const Product = () => {
             <div
               className={`${
                 open
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-full"
-              } absolute bg-white shadow-md bg-red-500 transition-[.01s] font-Roboto transform rounded-md p-2 -top-32 z-[999] md:-top-20 left-2 lg:left-0`}
+                  ? "opacity-100 translate-y-0 z-[9999999]"
+                  : "opacity-0 translate-y-full z-0"
+              } absolute shadow-md bg-red-500 transition-[.01s] font-Roboto transform rounded-md p-2 -top-32 z-[999] md:-top-20 left-2 lg:left-0`}
             >
               {product?.size?.map((size, idx) => (
                 <p
