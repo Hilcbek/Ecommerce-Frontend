@@ -50,16 +50,12 @@ const Cart = ({ open, disabled }) => {
   };
   let logModal = useLogin();
   let ResetCart = () => {
-    if (products.length > 0) {
-      dispatch(RESET_PRODUCT({}));
-      toast.success(
-        products.length > 0
-          ? "Products removed successfully"
-          : "Product removed successfully!"
-      );
-    } else {
-      toast.success("There is no product to remove!");
-    }
+    dispatch(RESET_PRODUCT({}));
+    toast.success(
+      products.length > 1
+        ? "Products removed successfully"
+        : "Product removed successfully!"
+    );
   };
   let handleAmountChange = (sign, id, color, size) => {
     dispatch(UPDATE_PRODUCT_AMOUNT({ sign, id, color, size }));
@@ -106,8 +102,9 @@ const Cart = ({ open, disabled }) => {
           dispatch(LOGOUT_ACTION({}));
         }
         if (err.response.data.error !== "token expired!") {
-          toast.error("Please it is " + err.response.data.error, {
+          toast.error(err.response.data.error + " to Checkout!", {
             position: "top-center",
+            style: { fontSize: 14 },
           });
         }
         if (err.response.data.error === "Sign in to your account!") {
@@ -140,7 +137,8 @@ const Cart = ({ open, disabled }) => {
             </h1>
             {amount > 0 && (
               <p className="lg:text-xs font-Roboto font-bold text-gray-800">
-                Currently your cart has {amount} items!
+                Currently your cart has {amount} item{""}
+                <span>{products.length > 1 ? "s" : ""}</span>!
               </p>
             )}
             <Marquee
@@ -157,11 +155,26 @@ const Cart = ({ open, disabled }) => {
               <p>Scroll to right to see all the information.</p>
             </Marquee>
           </div>
+          <div className="w-full md:flex hidden items-center justify-between mb-3 gap-3">
+            <div className="w-full flex items-center justify-center">Photo</div>
+            <div className="w-full flex items-center justify-center">
+              Product details.
+            </div>
+            <div className="w-full flex items-center justify-center">
+              Unit price
+            </div>
+            <div className="w-full flex items-center justify-center">
+              Controls
+            </div>
+            <div className="w-full flex items-center justify-center">
+              Product total price
+            </div>
+          </div>
           <div className="flex items-start overflow-x-scroll w-full bg-gray-100 h-auto py-2 font-Roboto justify-start flex-col gap-2">
             {products?.length > 0 ? (
               products.map((product) => {
                 return (
-                  <div className="flex w-[800px] items-center justify-start gap-5 border-solid border-b-[1px] p-2 border-gray-200">
+                  <div className="flex w-[800px] md:w-full items-center justify-start gap-5 border-solid border-b-[1px] p-2 border-gray-200">
                     <div
                       onClick={() =>
                         handleDeleteFromCart(
@@ -175,11 +188,21 @@ const Cart = ({ open, disabled }) => {
                       <MdOutlineClose size={20} />
                     </div>
                     <div className="w-full md:w-7/12">
-                      <img
-                        className="w-full h-full object-contain"
-                        src={product.img[0]}
-                        alt=""
-                      />
+                      {product?.img?.[0] ? (
+                        <img
+                          className="w-full h-full object-contain"
+                          src={product.img[0]}
+                          alt=""
+                        />
+                      ) : (
+                        <ClipLoader
+                          color={"#000"}
+                          loading={true}
+                          size={20}
+                          aria-label="Loading Spinner"
+                          data-testid="loader"
+                        />
+                      )}
                     </div>
                     <div className="w-full flex items-start justify-start flex-col gap-4">
                       <h1 className="text-gray-700 text-md md:text-xl">
@@ -252,12 +275,12 @@ const Cart = ({ open, disabled }) => {
               </h1>
             )}
           </div>
-          <div className="w-full sm:flex-row border-solid border-gray-100 border-t-[1px] flex-col font-bold font-Roboto tracking-wider text-xl flex items-center justify-center sm:justify-between">
-            <div className="flex items-center justify-start gap-1">
-              <h1 className="text-gray-600">Subtotal:</h1>
+          <div className="w-full sm:flex-row gap-3 mt-5 sm:mt-0 sm:gap-0 border-solid border-gray-100 border-t-[1px] flex-col font-bold font-Roboto tracking-wider text-xl flex items-center justify-center sm:justify-between">
+            <div className="flex p-3 tracking-wide text-center items-center w-full sm:w-fit justify-center bg-black text-white gap-1">
+              <h1 className="text-white">Subtotal:</h1>
               <span className="text-[16px]">${Number(total).toFixed(2)}</span>
             </div>
-            <div className="flex items-center mt-2 gap-3 justify-center flex-col">
+            <div className="flex items-center w-full sm:w-fit mt-2 gap-3 justify-center flex-col">
               <button
                 onClick={handleCheckout}
                 disabled={loading || products.length === 0}
@@ -292,7 +315,11 @@ const Cart = ({ open, disabled }) => {
               <button
                 disabled={loading}
                 onClick={ResetCart}
-                className="text-black border-solid border-black border-[1px] w-full p-4 text-sm"
+                className={`${
+                  products.length > 0
+                    ? "bg-transparent text-black cursor-pointer"
+                    : "bg-black/80 text-white cursor-not-allowed"
+                } border-solid border-black border-[1px] w-full p-4 text-sm`}
               >
                 Reset
               </button>
