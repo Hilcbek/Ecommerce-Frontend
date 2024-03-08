@@ -125,7 +125,7 @@ const Cart = ({ open, disabled }) => {
       <div
         className={`${
           showModal ? "opacity-100 z-[9999999]" : "opacity-0 -z-0"
-        } absolute transition-all p-5 pb-0 rounded-xl transform ease-linear duration-200 h-5/6 overflow-scroll gap-2 max-h-5/6 top-16 shadow-md shadow-black w-11/12 md:w-11/12 lg:w-10/12 xl:w-9/12 bg-white mx-auto flex items-start justify-start flex-col`}
+        } absolute transition-all p-5 pb-0 rounded-sm transform ease-linear duration-200 h-5/6 overflow-scroll gap-2 max-h-5/6 top-16 shadow-md shadow-black w-11/12 md:w-11/12 lg:w-10/12 xl:w-9/12 bg-white mx-auto flex items-start justify-start flex-col`}
       >
         <div
           onClick={handleClose}
