@@ -12,7 +12,7 @@ import { MdOutlineClose } from "react-icons/md";
 import { CiBag1 } from "react-icons/ci";
 import { useMediaQuery } from "react-responsive";
 import { FaInfo } from "react-icons/fa";
-
+import Marquee from "react-marquee-slider";
 import {
   DELETE_PRODUCT,
   EnableTheSuccessPage,
@@ -125,7 +125,7 @@ const Cart = ({ open, disabled }) => {
       <div
         className={`${
           showModal ? "opacity-100 z-[9999999]" : "opacity-0 -z-0"
-        } absolute transition-all p-5 pb-0 rounded-sm transform ease-linear duration-200 h-5/6 overflow-scroll gap-2 max-h-5/6 top-16 shadow-md shadow-black w-11/12 md:w-11/12 lg:w-10/12 xl:w-9/12 bg-white mx-auto flex items-start justify-start flex-col`}
+        } absolute transition-all p-5 overflow-x-hidden rounded-sm transform ease-linear duration-200 h-5/6 overflow-scroll gap-2 max-h-5/6 top-16 shadow-md shadow-black w-11/12 md:w-11/12 lg:w-10/12 xl:w-9/12 bg-white mx-auto flex items-start justify-start flex-col`}
       >
         <div
           onClick={handleClose}
@@ -143,21 +143,25 @@ const Cart = ({ open, disabled }) => {
                 Currently your cart has {amount} items!
               </p>
             )}
-            <h1
+            <Marquee
               className={`${
                 isDesktopOrLaptop
                   ? "flex items-center text-sm sm:text-[16px] justify-start gap-1"
                   : "hidden"
               }`}
+              velocity={25}
             >
-              <FaInfo /> Scroll to right to see all the information
-            </h1>
+              <div className="p-1 flex items-center justify-center rounded-full bg-gray-100 gap-3">
+                <FaInfo />
+              </div>{" "}
+              <p>Scroll to right to see all the information.</p>
+            </Marquee>
           </div>
-          <div className="flex items-start overflow-scroll h-auto py-2 font-Roboto justify-start flex-col gap-2">
+          <div className="flex items-start overflow-x-scroll w-full bg-gray-100 h-auto py-2 font-Roboto justify-start flex-col gap-2">
             {products?.length > 0 ? (
               products.map((product) => {
                 return (
-                  <div className="flex items-center justify-start gap-5 w-full border-solid border-b-[1px] p-2 border-gray-200">
+                  <div className="flex w-[800px] items-center justify-start gap-5 border-solid border-b-[1px] p-2 border-gray-200">
                     <div
                       onClick={() =>
                         handleDeleteFromCart(
@@ -170,7 +174,7 @@ const Cart = ({ open, disabled }) => {
                     >
                       <MdOutlineClose size={20} />
                     </div>
-                    <div className="md:w-7/12">
+                    <div className="w-full md:w-7/12">
                       <img
                         className="w-full h-full object-contain"
                         src={product.img[0]}
@@ -178,7 +182,7 @@ const Cart = ({ open, disabled }) => {
                       />
                     </div>
                     <div className="w-full flex items-start justify-start flex-col gap-4">
-                      <h1 className="text-gray-700 text-xl">
+                      <h1 className="text-gray-700 text-md md:text-xl">
                         {product?.title}
                       </h1>
                       <div className="flex items-center justify-start gap-1">
